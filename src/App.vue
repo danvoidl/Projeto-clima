@@ -1,30 +1,44 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+<link href="https://fonts.googleapis.com/css2?family=Courgette&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+
+  <div id="container-weather"> 
+  <!--  <div class="title">
+        <h1> Weather</h1>
+        <p> 
+            Made using the 
+            <a href="https://openweathermap.org/">OpenweatherMap</a> 
+            data and <strong>Vue</strong>.js
+        </p>
+    </div>-->
+      <Weather></Weather>
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+import Weather from './components/weather'
+
+export default {
+    data(){
+        return {
+            
+        }
+    },
+    components: { Weather }
+}
+</script>
+
+<style>
+
+.title{
+    text-align: center;
+    padding-top: 2%;
 }
 
-#nav {
-  padding: 30px;
+a{
+    text-decoration: none;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+strong{
+    color: #41b883;
 }
 </style>
