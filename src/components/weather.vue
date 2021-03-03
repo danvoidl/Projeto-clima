@@ -49,13 +49,18 @@ export default {
   methods: {
     async getWeather(name) {
       let data = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=7f6d644d8eb5540938a11b03526b9fee`
+        `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=7f6d644d8eb5540938a11b03526b9fee&lang=pt_br`
       );
-      let weatherData = await data.json();
+      if (data.status == 404){
+        window.alert(`Falha ao obter "${name}"\nErro ${data.status} : ${data.statusText}`)
+        return 1
+      }
 
+      let weatherData = await data.json();
+      
       let temperature = weatherData.main.temp - 273.15
 
-      let img = temperature < 9 ? `url(${require('@/assets/rain.jpg')})` : `url(${require('@/assets/sunny.jpg')})`
+      let img = temperature < 15 ? `url(${require('@/assets/rain.jpg')})` : `url(${require('@/assets/sunny.jpg')})`
 
       this.feedArray(weatherData, img);
     },
@@ -68,9 +73,7 @@ export default {
         max: Math.floor(weatherData.main.temp_max - 273.15),
         description: weatherData.weather[0].description,
       };
-
-      this.cssProps.backgroundImage = img
-      
+      this.cssProps.backgroundImage = img   
     },
     async getWeatherVoid() {
       let name = document.querySelector(".infoLocal").value.replace(" ", "+");
@@ -101,7 +104,10 @@ export default {
   display: grid;
   place-items: center;
 
-  transition: 600ms;
+  transition:ease 600ms;
+
+  position: relative;
+  
 }
 
 .weather img{
